@@ -48,8 +48,8 @@ else {
         console.error(e);
     }
     // 输出c文件
-    fs_1.default.writeFileSync(path_1.default.resolve('./', 'yy.tab.h'), finalTABH);
-    fs_1.default.writeFileSync(path_1.default.resolve('./', 'yy.seuyacc.c'), finalCode);
+    fs_1.default.writeFileSync(path_1.default.resolve('./out/', 'yy.tab.h'), finalTABH);
+    fs_1.default.writeFileSync(path_1.default.resolve('./out/', 'yy.seuyacc.c'), finalCode);
 }
 (0, utils_1.stdoutPrint)(`[ All work done! ]\n`);
 const tok = new Date().getTime();

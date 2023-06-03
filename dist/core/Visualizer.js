@@ -41,7 +41,7 @@ const childProcess = __importStar(require("child_process"));
 /**
  * 可视化LR1分析表（ACTIONGOTOTable）
  */
-function visualizeACTIONGOTOTable(lr1Analyzer, viewNow = true) {
+function visualizeACTIONGOTOTable(lr1Analyzer, viewNow = false) {
     let ACTIONHead = [];
     for (let i of lr1Analyzer.ACTIONReverseLookup)
         ACTIONHead.push(lr1Analyzer.getSymbolString(i));
@@ -100,7 +100,7 @@ exports.visualizeACTIONGOTOTable = visualizeACTIONGOTOTable;
 /**
  * 可视化GOTO图（LR1DFA）
  */
-function visualizeGOTOGraph(lr1dfa, lr1Analyzer, viewNow = true) {
+function visualizeGOTOGraph(lr1dfa, lr1Analyzer, viewNow = false) {
     let dumpObject = { nodes: [], edges: [] };
     // 设置点（项目集）
     for (let i = 0; i < lr1dfa.states.length; i++) {

@@ -17,7 +17,7 @@ import { LR1Analyzer } from './LR1'
 /**
  * 可视化LR1分析表（ACTIONGOTOTable）
  */
-export function visualizeACTIONGOTOTable(lr1Analyzer: LR1Analyzer, viewNow = true) {
+export function visualizeACTIONGOTOTable(lr1Analyzer: LR1Analyzer, viewNow = false) {
   let ACTIONHead = []
   for (let i of lr1Analyzer.ACTIONReverseLookup) ACTIONHead.push(lr1Analyzer.getSymbolString(i))
   let GOTOHead = []
@@ -72,7 +72,7 @@ export function visualizeACTIONGOTOTable(lr1Analyzer: LR1Analyzer, viewNow = tru
 /**
  * 可视化GOTO图（LR1DFA）
  */
-export function visualizeGOTOGraph(lr1dfa: LR1DFA, lr1Analyzer: LR1Analyzer, viewNow = true) {
+export function visualizeGOTOGraph(lr1dfa: LR1DFA, lr1Analyzer: LR1Analyzer, viewNow = false) {
   let dumpObject: {
     nodes: {
       key: string
