@@ -1,0 +1,59 @@
+{
+  "name": "seulexyacc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "tsc:watch": "tsc -p tsconfig.json --watch",
+    "tsc:full": "tsc",
+    "clean": "node ./script/clean.js",
+    "lint": "eslint src --fix --ext .ts",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "build": "npm run clean && tsc"
+  },
+  "author": "czh, Withod, Twileon",
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@types/jest": "^25.2.1",
+    "@types/node": "^13.13.4",
+    "husky": "^4.2.5",
+    "jest": "^25.5.1",
+    "lint-staged": "^10.1.7",
+    "ts-jest": "^25.4.0",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@types/dagre-d3": "^0.4.39",
+    "@types/jsdom": "^16.2.1",
+    "@typescript-eslint/eslint-plugin": "^2.29.0",
+    "@typescript-eslint/parser": "^2.29.0",
+    "colors": "^1.4.0",
+    "dagre-d3": "^0.6.4",
+    "eslint": "^6.8.0",
+    "jsdom": "^16.2.2",
+    "minimist": "^1.2.5",
+    "single-line-log": "^1.1.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo \"too lazy to run unit test\" && npm run build"
+    }
+  },
+  "directories": {
+    "doc": "doc",
+    "example": "example",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/czh/seu-lex-yacc.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/czh/seu-lex-yacc/issues"
+  },
+  "homepage": "https://github.com/czh/seu-lex-yacc#readme"
+}
