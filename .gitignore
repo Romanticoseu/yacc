@@ -6,3 +6,4 @@ package-lock.json
 /**/yy.seulex.c
 /**/yy.seuyacc.c
 /**/yy.tab.h
+/out/*

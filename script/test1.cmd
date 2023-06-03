@@ -1,0 +1,1 @@
+node ./dist/cli.js ./example/Calculator/Yacc.y -v

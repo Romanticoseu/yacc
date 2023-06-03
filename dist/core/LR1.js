@@ -3,9 +3,10 @@
 /* eslint-disable @typescript-eslint/member-delimiter-style */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LR1Analyzer = void 0;
 const Grammar_1 = require("./Grammar");
-const utils_1 = require("../../utils");
-const progressbar_1 = require("../../../enhance/progressbar");
+const utils_1 = require("../utils");
+const progressbar_1 = require("../../enhance/progressbar");
 const LALR_1 = require("./LALR");
 class LR1Analyzer {
     constructor(yaccParser, useLALR = false) {
@@ -26,7 +27,7 @@ class LR1Analyzer {
         this._preCalFirst();
         this._constructLR1DFA();
         if (useLALR) {
-            this._dfa = LALR_1.LR1DFAtoLALRDFA(this);
+            this._dfa = (0, LALR_1.LR1DFAtoLALRDFA)(this);
         }
         console.log('\n[ constructACTIONGOTOTable, this might take a long time... ]');
         this._constructACTIONGOTOTable();
@@ -60,7 +61,7 @@ class LR1Analyzer {
                 : decl.tokenName
                     ? this._getSymbolId({ type: 'token', content: decl.tokenName })
                     : -1;
-            utils_1.assert(id != -1, 'Operator declaration not found. This should never occur.');
+            (0, utils_1.assert)(id != -1, 'Operator declaration not found. This should never occur.');
             this._operators.push(new Grammar_1.LR1Operator(id, decl.assoc, decl.precedence));
         }
     }
@@ -95,7 +96,7 @@ class LR1Analyzer {
         for (let spSymbol of Object.values(Grammar_1.SpSymbol))
             this._symbols.push(spSymbol);
         this._startSymbol = this._getSymbolId({ type: 'nonterminal', content: yaccParser.startSymbol });
-        utils_1.assert(this._startSymbol != -1, 'LR1 startSymbol unset.');
+        (0, utils_1.assert)(this._startSymbol != -1, 'LR1 startSymbol unset.');
     }
     /**
      * 获取编号后的符号的编号
@@ -198,7 +199,7 @@ class LR1Analyzer {
     _convertProducer(stringProducers) {
         for (let stringProducer of stringProducers) {
             let lhs = this._getSymbolId({ type: 'nonterminal', content: stringProducer.lhs });
-            utils_1.assert(lhs != -1, 'lhs not found in symbols. This error should never occur.');
+            (0, utils_1.assert)(lhs != -1, 'lhs not found in symbols. This error should never occur.');
             for (let [index, right] of stringProducer.rhs.entries()) {
                 let rhs = [], PATTERN = new RegExp(/(' '|[^ ]+)/g), char;
                 while ((char = PATTERN.exec(right))) {
@@ -206,14 +207,14 @@ class LR1Analyzer {
                     if (/'.+'/.test(char[0])) {
                         tmp = char[0].substring(1, char[0].length - 1);
                         if (tmp[0] == '\\')
-                            tmp = utils_1.cookString(tmp);
+                            tmp = (0, utils_1.cookString)(tmp);
                         id = this._getSymbolId({ type: 'ascii', content: tmp });
                     }
                     else {
                         let a = this._getSymbolId({ type: 'nonterminal', content: tmp }), b = this._getSymbolId({ type: 'token', content: tmp });
                         id = id ? id : a != -1 ? a : b != -1 ? b : -1;
                     }
-                    utils_1.assert(id != -1, `symbol not found in symbols. This error should never occur. symbol=${tmp}`);
+                    (0, utils_1.assert)(id != -1, `symbol not found in symbols. This error should never occur. symbol=${tmp}`);
                     rhs.push(id);
                 }
                 this._producers.push(new Grammar_1.LR1Producer(lhs, rhs, `reduceTo("${stringProducer.lhs}"); \n${stringProducer.actions[index]}`));

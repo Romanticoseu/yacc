@@ -1,6 +1,7 @@
 "use strict";
 /* eslint-disable @typescript-eslint/no-use-before-define */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.generateYTABC = exports.generateYTABH = void 0;
 const Grammar_1 = require("./Grammar");
 /**
  * 生成Token编号供Lex使用

@@ -8,10 +8,11 @@
 
 import fs from 'fs'
 import path from 'path'
-import { stdoutPrint } from '../utils'
+import { stdoutPrint } from './utils'
 import { YaccParser } from './core/YaccParser'
 import { LR1Analyzer } from './core/LR1'
 import { generateYTABC, generateYTABH } from './core/CodeGenerator'
+import { visualizeACTIONGOTOTable, visualizeGOTOGraph } from './core/Visualizer'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const args = require('minimist')(process.argv.slice(2))
@@ -35,12 +36,15 @@ if (args._.length === 0) {
     finalTABH = generateYTABH(lr1)
     finalCode = generateYTABC(yaccParser, lr1)
     stdoutPrint(`[ Main work done! Start post-processing... ]\n`)
+    // 完成可视化
+    args.v && visualizeACTIONGOTOTable(lr1)
+    args.v && visualizeGOTOGraph(lr1.dfa, lr1)
   } catch (e) {
     console.error(e)
   }
   // 输出c文件
-  fs.writeFileSync(path.resolve('./', 'yy.tab.h'), finalTABH)
-  fs.writeFileSync(path.resolve('./', 'yy.seuyacc.c'), finalCode)
+  fs.writeFileSync(path.resolve('./out/', 'yy.tab.h'), finalTABH)
+  fs.writeFileSync(path.resolve('./out/', 'yy.seuyacc.c'), finalCode)
 }
 stdoutPrint(`[ All work done! ]\n`)
 const tok = new Date().getTime()

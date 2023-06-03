@@ -1,6 +1,7 @@
 "use strict";
 /* eslint-disable @typescript-eslint/member-delimiter-style */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LR1Operator = exports.LR1DFA = exports.LR1State = exports.LR1Item = exports.LR1Producer = exports.YaccParserProducer = exports.SpSymbol = void 0;
 /**
  * 特殊Symbol
  */
@@ -12,11 +13,6 @@ exports.SpSymbol = {
  * YaccParser读出的产生式
  */
 class YaccParserProducer {
-    constructor(lhs, rhs, actions) {
-        this._lhs = lhs;
-        this._rhs = [...rhs];
-        this._actions = [...actions];
-    }
     get lhs() {
         return this._lhs;
     }
@@ -25,6 +21,11 @@ class YaccParserProducer {
     }
     get actions() {
         return this._actions;
+    }
+    constructor(lhs, rhs, actions) {
+        this._lhs = lhs;
+        this._rhs = [...rhs];
+        this._actions = [...actions];
     }
 }
 exports.YaccParserProducer = YaccParserProducer;
@@ -45,11 +46,6 @@ exports.YaccParserProducer = YaccParserProducer;
  * lhs->rhs {action}
  */
 class LR1Producer {
-    constructor(lhs, rhs, action = '') {
-        this._lhs = lhs;
-        this._rhs = [...rhs];
-        this._action = action;
-    }
     get lhs() {
         return this._lhs;
     }
@@ -59,6 +55,11 @@ class LR1Producer {
     get action() {
         return this._action;
     }
+    constructor(lhs, rhs, action = '') {
+        this._lhs = lhs;
+        this._rhs = [...rhs];
+        this._action = action;
+    }
 }
 exports.LR1Producer = LR1Producer;
 /**
@@ -67,12 +68,6 @@ exports.LR1Producer = LR1Producer;
  * 将多个展望符的，拆分成不同的项目，每个项目只有一个展望符号
  */
 class LR1Item {
-    constructor(rawProducer, producer, lookahead, dotPosition = 0) {
-        this._rawProducer = rawProducer;
-        this._producer = producer;
-        this._lookahead = lookahead;
-        this._dotPosition = dotPosition;
-    }
     get producer() {
         return this._producer;
     }
@@ -84,6 +79,12 @@ class LR1Item {
     }
     get rawProducer() {
         return this._rawProducer;
+    }
+    constructor(rawProducer, producer, lookahead, dotPosition = 0) {
+        this._rawProducer = rawProducer;
+        this._producer = producer;
+        this._lookahead = lookahead;
+        this._dotPosition = dotPosition;
     }
     dotAtLast() {
         return this._dotPosition === this._rawProducer.rhs.length;
@@ -130,11 +131,6 @@ exports.LR1State = LR1State;
  * LR1项目集族（LR1自动机）
  */
 class LR1DFA {
-    constructor(startStateId) {
-        this._startStateId = startStateId;
-        this._states = [];
-        this._adjList = [];
-    }
     get startStateId() {
         return this._startStateId;
     }
@@ -154,17 +150,17 @@ class LR1DFA {
     link(from, to, alpha) {
         this._adjList[from].push({ to, alpha });
     }
+    constructor(startStateId) {
+        this._startStateId = startStateId;
+        this._states = [];
+        this._adjList = [];
+    }
 }
 exports.LR1DFA = LR1DFA;
 /**
  * LR1运算符
  */
 class LR1Operator {
-    constructor(symbolId, assoc, precedence) {
-        this._symbolId = symbolId;
-        this._assoc = assoc;
-        this._precedence = precedence;
-    }
     get symbolId() {
         return this._symbolId;
     }
@@ -173,6 +169,11 @@ class LR1Operator {
     }
     get precedence() {
         return this._precedence;
+    }
+    constructor(symbolId, assoc, precedence) {
+        this._symbolId = symbolId;
+        this._assoc = assoc;
+        this._precedence = precedence;
     }
 }
 exports.LR1Operator = LR1Operator;

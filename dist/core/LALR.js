@@ -6,6 +6,7 @@
  * 2020-05 @ https://github.com/czh/seu-lex-yacc
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LR1DFAtoLALRDFA = void 0;
 const Grammar_1 = require("./Grammar");
 function LR1DFAtoLALRDFA(lr1) {
     // {核的内容，包含这个核的状态号的数组}

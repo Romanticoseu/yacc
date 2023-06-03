@@ -8,25 +8,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.YaccParser = void 0;
 const fs_1 = __importDefault(require("fs"));
-const utils_1 = require("../../utils");
+const utils_1 = require("../utils");
 const Grammar_1 = require("./Grammar");
 /**
  * .y文件解析器
  */
 class YaccParser {
-    constructor(filePath) {
-        this._tokenDecl = [];
-        this._operatorDecl = [];
-        this._nonTerminals = [];
-        this._producers = [];
-        this._startSymbol = '';
-        this._rawContent = fs_1.default.readFileSync(filePath).toString().replace(/\r\n/g, '\n'); // 统一使用LF，没有CR
-        this._splitContent = this._rawContent.split('\n');
-        this._fillText();
-        this._parseProducerPart();
-        this._parseInfoPart();
-    }
     get copyPart() {
         return this._copyPart;
     }
@@ -47,6 +36,18 @@ class YaccParser {
     }
     get tokenDecl() {
         return this._tokenDecl;
+    }
+    constructor(filePath) {
+        this._tokenDecl = [];
+        this._operatorDecl = [];
+        this._nonTerminals = [];
+        this._producers = [];
+        this._startSymbol = '';
+        this._rawContent = fs_1.default.readFileSync(filePath).toString().replace(/\r\n/g, '\n'); // 统一使用LF，没有CR
+        this._splitContent = this._rawContent.split('\n');
+        this._fillText();
+        this._parseProducerPart();
+        this._parseInfoPart();
     }
     /**
      * 分析信息部分
@@ -69,11 +70,11 @@ class YaccParser {
                     for (let i = 1; i < words.length; i++) {
                         let temp = words[i], literalOnly = false;
                         if (temp[0] == "'") {
-                            utils_1.assert(temp[temp.length - 1] == "'", `Quote not closed: ${temp}`);
-                            temp = utils_1.cookString(temp.substring(1, temp.length - 1));
+                            (0, utils_1.assert)(temp[temp.length - 1] == "'", `Quote not closed: ${temp}`);
+                            temp = (0, utils_1.cookString)(temp.substring(1, temp.length - 1));
                             literalOnly = true;
                         }
-                        utils_1.assert(!this._operatorDecl.some(x => x.tokenName == temp || x.literal == temp), `Operator redefined: ${temp}`);
+                        (0, utils_1.assert)(!this._operatorDecl.some(x => x.tokenName == temp || x.literal == temp), `Operator redefined: ${temp}`);
                         this._operatorDecl.push(literalOnly
                             ? { literal: temp, assoc, precedence: currentPrecedence }
                             : { tokenName: temp, assoc, precedence: currentPrecedence });
@@ -81,16 +82,16 @@ class YaccParser {
                     break;
                 case '%start':
                     for (let i = 1; i < words.length; i++) {
-                        utils_1.assert(!this._startSymbol.trim(), `Start symbol redefined: ${words[i]}`);
-                        utils_1.assert(this._nonTerminals.includes(words[i]), `Unknown start symbol: ${words[i]}`);
+                        (0, utils_1.assert)(!this._startSymbol.trim(), `Start symbol redefined: ${words[i]}`);
+                        (0, utils_1.assert)(this._nonTerminals.includes(words[i]), `Unknown start symbol: ${words[i]}`);
                         this._startSymbol = words[i];
                     }
                     break;
                 default:
-                    utils_1.assert(false, `Unknown declaration: ${words[0]}`);
+                    (0, utils_1.assert)(false, `Unknown declaration: ${words[0]}`);
             }
         });
-        utils_1.assert(this._startSymbol.trim(), 'Start symbol undefined.');
+        (0, utils_1.assert)(this._startSymbol.trim(), 'Start symbol undefined.');
     }
     /**
      * 解析产生式部分
@@ -124,22 +125,22 @@ class YaccParser {
             switch (v.trimRight() // 要求左侧顶格
             ) {
                 case '%{':
-                    utils_1.assert(copyPartStart === -1, 'Bad .y structure. Duplicate %{.');
+                    (0, utils_1.assert)(copyPartStart === -1, 'Bad .y structure. Duplicate %{.');
                     copyPartStart = i;
                     break;
                 case '%}':
-                    utils_1.assert(copyPartEnd === -1, 'Bad .y structure. Duplicate %}.');
+                    (0, utils_1.assert)(copyPartEnd === -1, 'Bad .y structure. Duplicate %}.');
                     copyPartEnd = i;
                     break;
                 case '%%':
-                    utils_1.assert(twoPercent.length < 2, 'Bad .y structure. Duplicate %%.');
+                    (0, utils_1.assert)(twoPercent.length < 2, 'Bad .y structure. Duplicate %%.');
                     twoPercent.push(i);
                     break;
             }
         });
-        utils_1.assert(copyPartStart !== -1, 'Bad .y structure. {% not found.');
-        utils_1.assert(copyPartEnd !== -1, 'Bad .y structure. %} not found.');
-        utils_1.assert(twoPercent.length === 2, 'Bad .y structure. No enough %%.');
+        (0, utils_1.assert)(copyPartStart !== -1, 'Bad .y structure. {% not found.');
+        (0, utils_1.assert)(copyPartEnd !== -1, 'Bad .y structure. %} not found.');
+        (0, utils_1.assert)(twoPercent.length === 2, 'Bad .y structure. No enough %%.');
         // 最末尾的C代码部分
         this._userCodePart = this._splitContent.slice(twoPercent[1] + 1).join('\n');
         // 开头的直接复制部分

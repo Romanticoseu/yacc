@@ -2,17 +2,34 @@
 /* eslint-disable @typescript-eslint/member-delimiter-style */
 /* eslint-disable indent */
 /* eslint-disable @typescript-eslint/no-use-before-define */
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.visualizeGOTOGraph = exports.visualizeACTIONGOTOTable = void 0;
 /**
  * 可视化工具
  * by czh
@@ -74,7 +91,7 @@ function visualizeACTIONGOTOTable(lr1Analyzer, viewNow = true) {
     }
     const dumpObject = { ACTIONHead, GOTOHead, ACTIONTable, GOTOTable };
     const dumpJSON = JSON.stringify(dumpObject, null, 2);
-    const VisualizerPath = path_1.default.join(__dirname, '../../../enhance/TableVisualizer');
+    const VisualizerPath = path_1.default.join(__dirname, '../../enhance/TableVisualizer');
     fs_1.default.writeFileSync(path_1.default.join(VisualizerPath, './data.js'), `window._seulex_data = ${dumpJSON}`);
     // 启动浏览器显示
     viewNow && childProcess.exec(`start ${path_1.default.join(VisualizerPath, './index.html')} `);
@@ -134,7 +151,7 @@ function visualizeGOTOGraph(lr1dfa, lr1Analyzer, viewNow = true) {
         });
     }
     let dagreJSON = JSON.stringify(dumpObject, null, 2);
-    const VisualizerPath = path_1.default.join(__dirname, '../../../enhance/FAVisualizer');
+    const VisualizerPath = path_1.default.join(__dirname, '../../enhance/FAVisualizer');
     const shape = 'rect';
     fs_1.default.writeFileSync(path_1.default.join(VisualizerPath, './data.js'), `window._seulex_shape = '${shape}'; let data = ${dagreJSON}`);
     // 启动浏览器显示
