@@ -3,7 +3,7 @@
  * 使用：
  *    node <path_to_project>/dist/seuyacc/cli.js [yacc_file] [options]
  *    [options]:
- * github.com/czh/seu-lex-yacc
+ * github.com/czh/yacc
  */
 
 import fs from 'fs'

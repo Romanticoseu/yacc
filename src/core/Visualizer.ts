@@ -5,7 +5,7 @@
 /**
  * 可视化工具
  * by czh
- * 2020-05 @ https://github.com/czh/seu-lex-yacc
+ * 2023 @ https://github.com/czh/yacc
  */
 
 import fs from 'fs'

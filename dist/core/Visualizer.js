@@ -33,7 +33,7 @@ exports.visualizeGOTOGraph = exports.visualizeACTIONGOTOTable = void 0;
 /**
  * 可视化工具
  * by czh
- * 2020-05 @ https://github.com/czh/seu-lex-yacc
+ * 2023 @ https://github.com/czh/yacc
  */
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));

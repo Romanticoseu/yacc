@@ -1,7 +1,7 @@
 /**
  * Yacc源文件 (.y）解析器
  * by Withod, czh
- * 2020-05 @ https://github.com/czh/seu-lex-yacc
+ * 2023 @ https://github.com/czh/yacc
  */
 
 import fs from 'fs'

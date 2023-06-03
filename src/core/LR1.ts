@@ -5,7 +5,7 @@
 /**
  * LR语法分析
  * by Withod, czh
- * 2020-05 @ https://github.com/Withod/seu-lex-yacc
+ * 2023 @ https://github.com/Withod/yacc
  */
 
 import { YaccParser } from './YaccParser'

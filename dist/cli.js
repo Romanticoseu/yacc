@@ -4,7 +4,7 @@
  * 使用：
  *    node <path_to_project>/dist/seuyacc/cli.js [yacc_file] [options]
  *    [options]:
- * github.com/czh/seu-lex-yacc
+ * github.com/czh/yacc
  */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };

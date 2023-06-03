@@ -2,7 +2,7 @@
  * LALR相关
  * // FIXME：有BUG
  * by Twielon
- * 2020-05 @ https://github.com/czh/seu-lex-yacc
+ * 2023 @ https://github.com/czh/yacc
  */
 
 import { LR1Analyzer } from './LR1'

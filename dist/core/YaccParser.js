@@ -2,7 +2,7 @@
 /**
  * Yacc源文件 (.y）解析器
  * by Withod, czh
- * 2020-05 @ https://github.com/czh/seu-lex-yacc
+ * 2023 @ https://github.com/czh/yacc
  */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };

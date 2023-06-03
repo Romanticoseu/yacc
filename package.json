@@ -49,11 +49,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/czh/seu-lex-yacc.git"
+    "url": "git+https://github.com/czh/yacc.git"
   },
   "keywords": [],
   "bugs": {
-    "url": "https://github.com/czh/seu-lex-yacc/issues"
+    "url": "https://github.com/czh/yacc/issues"
   },
-  "homepage": "https://github.com/czh/seu-lex-yacc#readme"
+  "homepage": "https://github.com/czh/yacc#readme"
 }
